@@ -79,7 +79,7 @@
 
   <section class="content-section" id="overview" data-toc-title="Overview">
     <figure class="figure-container hero-figure">
-      <img src="./static/images/hydrapp_teaser.jpg" alt="Hydra++ indoor and outdoor 3D scene graph reconstructions">
+      <img src="./static/images/hydrapp_teaser.png" alt="Hydra++ indoor and outdoor 3D scene graph reconstructions">
       <figcaption>
         Hydra++ constructs hierarchical 3D scene graphs with object-level shape reconstruction in indoor RGB-D and outdoor hybrid LiDAR-camera settings.
       </figcaption>
@@ -125,14 +125,27 @@
     </p>
 
     <figure class="figure-container">
-      <img src="./static/images/hydrapp_pipeline.jpg" alt="Hydra++ system pipeline">
+      <img src="./static/images/hydrapp_pipeline.svg" alt="Hydra++ system pipeline">
       <figcaption>
         Sensor data, semantic segmentation, and odometry flow through active-window mapping, object tracking, shape estimation, RMCC, and scene graph construction.
       </figcaption>
     </figure>
 
-    <figure class="figure-container">
-      <img src="./static/images/hydrapp_ground_integration.jpg" alt="Ground-aware adaptive integration for outdoor reconstruction">
+    <figure class="figure-container scene-mesh-figure">
+      <div class="scene-mesh-grid">
+        <div>
+          <img src="./static/images/raw/scene/scene_meshes_rgbd.png" alt="RGB-D-only outdoor mesh" loading="lazy">
+          <span>RGB-D only</span>
+        </div>
+        <div>
+          <img src="./static/images/raw/scene/scene_meshes_lidar.png" alt="Hybrid LiDAR-camera outdoor mesh without adaptive integration" loading="lazy">
+          <span>Hybrid</span>
+        </div>
+        <div>
+          <img src="./static/images/raw/scene/scene_meshes_hybrid.png" alt="Hybrid LiDAR-camera outdoor mesh with adaptive integration" loading="lazy">
+          <span>Hybrid + adaptive</span>
+        </div>
+      </div>
       <figcaption>
         Ground-aware adaptive TSDF integration improves outdoor mesh completeness under sparse and oblique LiDAR observations.
       </figcaption>
@@ -146,15 +159,112 @@
       In outdoor scenes, the hybrid LiDAR-camera mode recovers object meshes for examples such as a fire hydrant, car, and bench.
     </p>
 
-    <figure class="figure-container">
-      <img src="./static/images/hydrapp_shape_comparison.jpg" alt="Hydra++ shape comparison with other object representations">
+    <figure class="figure-container wide-figure">
+      <div class="shape-grid" aria-label="Qualitative object shape comparison">
+        <div class="shape-method">
+          <h3>SlideSLAM</h3>
+          <div class="shape-row">
+            <img src="./static/images/raw/shape/05_slideslam.png" alt="SlideSLAM chair mesh" loading="lazy">
+            <img src="./static/images/raw/shape/05_slideslam_hm_w_bar.png" alt="SlideSLAM chair error heatmap" loading="lazy">
+          </div>
+          <div class="shape-row">
+            <img src="./static/images/raw/shape/12_slideslam.png" alt="SlideSLAM chair mesh variant" loading="lazy">
+            <img src="./static/images/raw/shape/12_slideslam_hm_w_bar.png" alt="SlideSLAM chair variant error heatmap" loading="lazy">
+          </div>
+          <div class="shape-row">
+            <img src="./static/images/raw/shape/42_slideslam.png" alt="SlideSLAM bench mesh" loading="lazy">
+            <img src="./static/images/raw/shape/42_slideslam_hm_w_bar.png" alt="SlideSLAM bench error heatmap" loading="lazy">
+          </div>
+          <div class="shape-row">
+            <img src="./static/images/raw/shape/44_slideslam.png" alt="SlideSLAM plant mesh" loading="lazy">
+            <img src="./static/images/raw/shape/44_slideslam_hm_w_bar.png" alt="SlideSLAM plant error heatmap" loading="lazy">
+          </div>
+        </div>
+        <div class="shape-method">
+          <h3>Hydra</h3>
+          <div class="shape-row">
+            <img src="./static/images/raw/shape/05_hydra.png" alt="Hydra chair mesh" loading="lazy">
+            <img src="./static/images/raw/shape/05_hydra_hm.png" alt="Hydra chair error heatmap" loading="lazy">
+          </div>
+          <div class="shape-row">
+            <img src="./static/images/raw/shape/12_hydra.png" alt="Hydra chair mesh variant" loading="lazy">
+            <img src="./static/images/raw/shape/12_hydra_hm.png" alt="Hydra chair variant error heatmap" loading="lazy">
+          </div>
+          <div class="shape-row">
+            <img src="./static/images/raw/shape/42_hydra.png" alt="Hydra bench mesh" loading="lazy">
+            <img src="./static/images/raw/shape/42_hydra_hm.png" alt="Hydra bench error heatmap" loading="lazy">
+          </div>
+          <div class="shape-row">
+            <img src="./static/images/raw/shape/44_hydra.png" alt="Hydra plant mesh" loading="lazy">
+            <img src="./static/images/raw/shape/44_hydra_hm.png" alt="Hydra plant error heatmap" loading="lazy">
+          </div>
+        </div>
+        <div class="shape-method">
+          <h3>Khronos</h3>
+          <div class="shape-row">
+            <img src="./static/images/raw/shape/05_khronos.png" alt="Khronos chair mesh" loading="lazy">
+            <img src="./static/images/raw/shape/05_khronos_hm.png" alt="Khronos chair error heatmap" loading="lazy">
+          </div>
+          <div class="shape-row">
+            <img src="./static/images/raw/shape/12_khronos.png" alt="Khronos chair mesh variant" loading="lazy">
+            <img src="./static/images/raw/shape/12_khronos_hm.png" alt="Khronos chair variant error heatmap" loading="lazy">
+          </div>
+          <div class="shape-row">
+            <img src="./static/images/raw/shape/42_khronos.png" alt="Khronos bench mesh" loading="lazy">
+            <img src="./static/images/raw/shape/42_khronos_hm.png" alt="Khronos bench error heatmap" loading="lazy">
+          </div>
+          <div class="shape-row">
+            <img src="./static/images/raw/shape/44_khronos.png" alt="Khronos plant mesh" loading="lazy">
+            <img src="./static/images/raw/shape/44_khronos_hm.png" alt="Khronos plant error heatmap" loading="lazy">
+          </div>
+        </div>
+        <div class="shape-method ours">
+          <h3>Hydra++</h3>
+          <div class="shape-row">
+            <img src="./static/images/raw/shape/05_crisp.png" alt="Hydra++ chair mesh" loading="lazy">
+            <img src="./static/images/raw/shape/05_crisp_hm.png" alt="Hydra++ chair error heatmap" loading="lazy">
+          </div>
+          <div class="shape-row">
+            <img src="./static/images/raw/shape/12_crisp.png" alt="Hydra++ chair mesh variant" loading="lazy">
+            <img src="./static/images/raw/shape/12_crisp_hm.png" alt="Hydra++ chair variant error heatmap" loading="lazy">
+          </div>
+          <div class="shape-row">
+            <img src="./static/images/raw/shape/42_crisp.png" alt="Hydra++ bench mesh" loading="lazy">
+            <img src="./static/images/raw/shape/42_crisp_hm.png" alt="Hydra++ bench error heatmap" loading="lazy">
+          </div>
+          <div class="shape-row">
+            <img src="./static/images/raw/shape/44_crisp.png" alt="Hydra++ plant mesh" loading="lazy">
+            <img src="./static/images/raw/shape/44_crisp_hm.png" alt="Hydra++ plant error heatmap" loading="lazy">
+          </div>
+        </div>
+      </div>
       <figcaption>
         Qualitative comparison against other object representations.
       </figcaption>
     </figure>
 
-    <figure class="figure-container">
-      <img src="./static/images/hydrapp_outdoor_objects.jpg" alt="Hydra++ outdoor object reconstruction examples">
+    <figure class="figure-container wide-figure">
+      <div class="objectwise-grid" aria-label="Outdoor object-level close-up results">
+        <div class="grid-heading"></div>
+        <div class="grid-heading">RGB input</div>
+        <div class="grid-heading">Khronos</div>
+        <div class="grid-heading">Hydra++</div>
+
+        <div class="row-label">Fire hydrant</div>
+        <img src="./static/images/raw/objectwise/000009.png" alt="RGB input with fire hydrant" loading="lazy">
+        <img src="./static/images/raw/objectwise/khronos_firehydrant.png" alt="Khronos fire hydrant reconstruction" loading="lazy">
+        <img src="./static/images/raw/objectwise/ours_firehydrant.png" alt="Hydra++ fire hydrant reconstruction" loading="lazy">
+
+        <div class="row-label">Car</div>
+        <img src="./static/images/raw/objectwise/000032.png" alt="RGB input with car" loading="lazy">
+        <img src="./static/images/raw/objectwise/khronos_car.png" alt="Khronos car reconstruction" loading="lazy">
+        <img src="./static/images/raw/objectwise/ours_car.png" alt="Hydra++ car reconstruction" loading="lazy">
+
+        <div class="row-label">Bench</div>
+        <img src="./static/images/raw/objectwise/000014.png" alt="RGB input with bench" loading="lazy">
+        <img src="./static/images/raw/objectwise/khronos_bench.png" alt="Khronos bench reconstruction" loading="lazy">
+        <img src="./static/images/raw/objectwise/ours_chair.png" alt="Hydra++ bench reconstruction" loading="lazy">
+      </div>
       <figcaption>
         Outdoor object-level close-ups from the hybrid sensor-fusion mode.
       </figcaption>
