@@ -24,7 +24,10 @@
     <li><a href="#abstract">Abstract</a></li>
     <li><a href="#contributions">Contributions</a></li>
     <li><a href="#method">Method</a></li>
-    <li><a href="#results">Results</a></li>
+    <li><a href="#evaluation">Evaluation</a></li>
+    <li><a href="#shape-models">Shape Models</a></li>
+    <li><a href="#outdoor">Outdoor</a></li>
+    <li><a href="#rmcc">RMCC</a></li>
     <li><a href="#bibtex">BibTeX</a></li>
   </ul>
 </nav>
@@ -64,10 +67,10 @@
         <i class="fab fa-youtube" aria-hidden="true"></i>
         <span>Video (TBU)</span>
       </span>
-      <a href="https://github.com/MIT-SPARK/Hydra">
+      <span class="link-placeholder">
         <i class="fab fa-github" aria-hidden="true"></i>
-        <span>Code</span>
-      </a>
+        <span>Code (TBU)</span>
+      </span>
     </div>
 
     <hr>
@@ -94,34 +97,38 @@
       limiting instance-specific shape detail. Hydra++ integrates category-agnostic shape estimation into a hierarchical
       3D scene graph pipeline, adds a reprojection-mask consistency check to reject degenerate shape predictions, and
       supports a hybrid LiDAR-camera configuration for large-scale outdoor operation. Experiments in simulation and
-      real-world outdoor campus scenes show improved object-level and scene-level reconstruction quality.
+      real-world outdoor scenes show improved object-level and scene-level reconstruction quality.
     </p>
   </section>
 
   <section class="content-section" id="contributions" data-toc-title="Contributions">
     <h2>What <b>Hydra++</b> adds</h2>
-    <p>
-      <b>Object-level shape estimation &nbsp;|&nbsp;</b>
-      Learning-based estimators reconstruct full object meshes from partial observations, improving the geometry stored in the scene graph.
-    </p>
-    <p>
-      <b>Reprojection-mask consistency check &nbsp;|&nbsp;</b>
-      RMCC rejects unreliable predictions caused by partial views or imprecise instance segmentation.
-    </p>
-    <p>
-      <b>Hybrid outdoor mapping &nbsp;|&nbsp;</b>
-      LiDAR supplies metric scene structure while camera observations support object shape estimation for outdoor campus-scale scenes.
-    </p>
-    <p>
-      <b>Estimator trade-off study &nbsp;|&nbsp;</b>
-      The default CRISP-based configuration targets online operation, while SAM3D is studied as a modular alternative for generalization-latency trade-offs.
-    </p>
+    <div class="claim-grid">
+      <article>
+        <h3>Instance shape</h3>
+        <p>Learning-based estimators reconstruct full object meshes from partial observations, so object nodes store completed geometry rather than only accumulated partial surfaces.</p>
+      </article>
+      <article>
+        <h3>RMCC validation</h3>
+        <p>The reprojection-mask consistency check rejects shape predictions whose reprojected silhouette does not agree with the observed mask.</p>
+      </article>
+      <article>
+        <h3>Hybrid mapping</h3>
+        <p>LiDAR supplies metric scene structure while camera observations support object shape estimation for larger outdoor scenes.</p>
+      </article>
+      <article>
+        <h3>Modular estimator</h3>
+        <p>CRISP is used for the real-time configuration, while SAM3D illustrates a stronger but slower out-of-domain alternative.</p>
+      </article>
+    </div>
   </section>
 
   <section class="content-section" id="method" data-toc-title="Method">
     <h2><b>Method</b></h2>
     <p>
-      Hydra++ extends the Hydra and Khronos scene graph pipeline with shape estimation, RMCC verification, and a hybrid LiDAR-camera mode.
+      Hydra++ builds on the Hydra and Khronos 3D scene graph pipeline. It maintains an active-window metric-semantic map,
+      tracks object candidates over time, then invokes a shape estimator when an object track leaves the active window.
+      Accepted object meshes are inserted into the hierarchical scene graph together with places, regions, and spatial relationships.
     </p>
 
     <figure class="figure-container">
@@ -131,32 +138,105 @@
       </figcaption>
     </figure>
 
-    <figure class="figure-container scene-mesh-figure">
-      <div class="scene-mesh-grid">
+    <div class="method-grid">
+      <article>
+        <h3>Track selection</h3>
+        <p>The shape module uses the observation with the largest 3D bounding-box volume, which typically corresponds to the least occluded view.</p>
+      </article>
+      <article>
+        <h3>Pose and mesh</h3>
+        <p>Each accepted object stores semantic label, metric scale, reconstructed mesh, world-frame position, and orientation in the scene graph.</p>
+      </article>
+      <article>
+        <h3>Outdoor TSDF</h3>
+        <p>Ground-aware adaptive integration extends the negative TSDF support for ground-labeled LiDAR returns at high incidence angles.</p>
+      </article>
+    </div>
+
+    <figure class="figure-container">
+      <div class="adaptive-grid">
         <div>
-          <img src="./static/images/raw/scene/scene_meshes_rgbd.png" alt="RGB-D-only outdoor mesh" loading="lazy">
-          <span>RGB-D only</span>
+          <span>Standard integration</span>
+          <img src="./static/images/raw/adaptive/incidence_before.png" alt="Standard TSDF integration at high incidence angles" loading="lazy">
         </div>
         <div>
-          <img src="./static/images/raw/scene/scene_meshes_lidar.png" alt="Hybrid LiDAR-camera outdoor mesh without adaptive integration" loading="lazy">
-          <span>Hybrid</span>
-        </div>
-        <div>
-          <img src="./static/images/raw/scene/scene_meshes_hybrid.png" alt="Hybrid LiDAR-camera outdoor mesh with adaptive integration" loading="lazy">
-          <span>Hybrid + adaptive</span>
+          <span>Ground-aware adaptive integration</span>
+          <img src="./static/images/raw/adaptive/incidence_after.png" alt="Ground-aware adaptive TSDF integration at high incidence angles" loading="lazy">
         </div>
       </div>
       <figcaption>
-        Ground-aware adaptive TSDF integration improves outdoor mesh completeness under sparse and oblique LiDAR observations.
+        The adaptive strategy provides controlled negative support behind ground surfaces, restoring TSDF sign transitions that are often missing for sparse long-range LiDAR returns.
       </figcaption>
     </figure>
   </section>
 
-  <section class="content-section" id="results" data-toc-title="Results">
-    <h2><b>Results</b></h2>
+  <section class="content-section" id="evaluation" data-toc-title="Evaluation">
+    <h2><b>Evaluation</b></h2>
     <p>
-      Hydra++ reconstructs instance-level geometry rather than relying only on partial observations or fixed class templates.
-      In outdoor scenes, the hybrid LiDAR-camera mode recovers object meshes for examples such as a fire hydrant, car, and bench.
+      Hydra++ is evaluated on uHumans2 for indoor object-level scene graph quality and on Kimera-Multi for outdoor hybrid sensor operation.
+      Object detections are matched by same-class centroid distance, while matched meshes are evaluated using Chamfer distance,
+      3D bounding-box IoU, and volumetric IoU.
+    </p>
+
+    <figure class="figure-container">
+      <div class="centroid-grid" aria-label="Object-level mapping comparison">
+        <div>
+          <img src="./static/images/raw/analysis/object_centroids_reference.png" alt="Reference object centroid map" loading="lazy">
+          <span>Reference</span>
+        </div>
+        <div>
+          <img src="./static/images/raw/analysis/object_centroids_slideslam.png" alt="SlideSLAM object centroid map" loading="lazy">
+          <span>SlideSLAM</span>
+        </div>
+        <div>
+          <img src="./static/images/raw/analysis/object_centroids_hydra.png" alt="Hydra object centroid map" loading="lazy">
+          <span>Hydra</span>
+        </div>
+        <div>
+          <img src="./static/images/raw/analysis/object_centroids_khronos.png" alt="Khronos object centroid map" loading="lazy">
+          <span>Khronos</span>
+        </div>
+        <div>
+          <img src="./static/images/raw/analysis/object_centroids_hydrapp.png" alt="Hydra++ object centroid map" loading="lazy">
+          <span>Hydra++</span>
+        </div>
+      </div>
+      <img class="centroid-legend" src="./static/images/raw/analysis/object_centroids_labels.png" alt="Object centroid legend" loading="lazy">
+      <figcaption>
+        Estimated objects are matched when the nearest ground-truth object of the same class is within 0.2 m; green marks matched estimates and red marks unmatched estimates.
+      </figcaption>
+    </figure>
+
+    <div class="table-wrap" role="region" aria-label="uHumans2 quantitative comparison">
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>Threshold</th>
+            <th>Method</th>
+            <th>P</th>
+            <th>R</th>
+            <th>F1</th>
+            <th>Chamfer</th>
+            <th>B-IoU</th>
+            <th>V-IoU</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>0.2 m</td><td>SlideSLAM</td><td>0.206</td><td>0.057</td><td>0.089</td><td>0.039</td><td>0.606</td><td>0.199</td></tr>
+          <tr><td>0.2 m</td><td>Hydra</td><td>0.529</td><td>0.409</td><td>0.461</td><td>0.035</td><td>0.515</td><td>0.298</td></tr>
+          <tr><td>0.2 m</td><td>Khronos</td><td>0.362</td><td>0.239</td><td>0.288</td><td>0.028</td><td>0.671</td><td>0.350</td></tr>
+          <tr><td>0.2 m</td><td>Ours w/o RMCC</td><td>0.670</td><td>0.602</td><td>0.634</td><td>0.008</td><td>0.690</td><td>0.540</td></tr>
+          <tr class="ours-row"><td>0.2 m</td><td>Hydra++</td><td>0.787</td><td>0.591</td><td>0.675</td><td>0.004</td><td>0.739</td><td>0.598</td></tr>
+          <tr><td>0.5 m</td><td>SlideSLAM</td><td>0.794</td><td>0.159</td><td>0.265</td><td>0.051</td><td>0.436</td><td>0.134</td></tr>
+          <tr><td>0.5 m</td><td>Hydra</td><td>0.897</td><td>0.705</td><td>0.789</td><td>0.072</td><td>0.412</td><td>0.246</td></tr>
+          <tr><td>0.5 m</td><td>Khronos</td><td>0.971</td><td>0.546</td><td>0.699</td><td>0.091</td><td>0.358</td><td>0.239</td></tr>
+          <tr><td>0.5 m</td><td>Ours w/o RMCC</td><td>0.839</td><td>0.682</td><td>0.752</td><td>0.032</td><td>0.582</td><td>0.451</td></tr>
+          <tr class="ours-row"><td>0.5 m</td><td>Hydra++</td><td>0.921</td><td>0.671</td><td>0.776</td><td>0.020</td><td>0.655</td><td>0.528</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      Table values are reproduced from the current manuscript draft; final camera-ready numbers remain subject to the paper version.
     </p>
 
     <figure class="figure-container wide-figure">
@@ -239,7 +319,66 @@
         </div>
       </div>
       <figcaption>
-        Qualitative comparison against other object representations.
+        Compared with partial scene-graph objects and class templates, Hydra++ reconstructs instance-specific geometry such as chair arms, seat curvature, and backrest shape.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="content-section" id="shape-models" data-toc-title="Shape Models">
+    <h2><b>Shape Model Trade-Offs</b></h2>
+    <p>
+      The framework is estimator-agnostic. CRISP is the default model for real-time operation over known object classes,
+      while SAM3D shows stronger reconstruction on novel out-of-domain instances at much higher inference latency.
+    </p>
+
+    <figure class="figure-container">
+      <img src="./static/images/raw/analysis/ood.png" alt="Out-of-domain CRISP and SAM3D mesh reconstruction comparison" loading="lazy">
+      <figcaption>
+        Out-of-domain comparison: CRISP can struggle when the object is outside its training distribution, while SAM3D more reliably reconstructs novel geometries.
+      </figcaption>
+    </figure>
+
+    <figure class="figure-container">
+      <div class="runtime-grid">
+        <div>
+          <img src="./static/images/raw/analysis/runtime_uhumans.png" alt="Runtime distribution on uHumans2" loading="lazy">
+          <span>uHumans2</span>
+        </div>
+        <div>
+          <img src="./static/images/raw/analysis/runtime_kimera.png" alt="Runtime distribution on Kimera-Multi" loading="lazy">
+          <span>Kimera-Multi</span>
+        </div>
+      </div>
+      <figcaption>
+        In the manuscript experiments, SAM3D takes roughly 11-14 s per object, while CRISP is much faster and better suited to online multi-object deployment.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="content-section" id="outdoor" data-toc-title="Outdoor">
+    <h2><b>Outdoor Hybrid Mapping</b></h2>
+    <p>
+      Outdoor reconstruction combines LiDAR-driven metric mapping with camera-driven object shape estimation. The hybrid mode improves scene mesh continuity
+      and recovers object-level geometry for fire hydrants, cars, and benches in the Kimera-Multi sequence.
+    </p>
+
+    <figure class="figure-container scene-mesh-figure">
+      <div class="scene-mesh-grid">
+        <div>
+          <img src="./static/images/raw/scene/scene_meshes_rgbd.png" alt="RGB-D-only outdoor mesh" loading="lazy">
+          <span>RGB-D only</span>
+        </div>
+        <div>
+          <img src="./static/images/raw/scene/scene_meshes_lidar.png" alt="Hybrid LiDAR-camera outdoor mesh without adaptive integration" loading="lazy">
+          <span>Hybrid</span>
+        </div>
+        <div>
+          <img src="./static/images/raw/scene/scene_meshes_hybrid.png" alt="Hybrid LiDAR-camera outdoor mesh with adaptive integration" loading="lazy">
+          <span>Hybrid + adaptive</span>
+        </div>
+      </div>
+      <figcaption>
+        Ground-aware adaptive TSDF integration improves outdoor mesh completeness under sparse and oblique LiDAR observations.
       </figcaption>
     </figure>
 
@@ -263,10 +402,46 @@
         <div class="row-label">Bench</div>
         <img src="./static/images/raw/objectwise/000014.png" alt="RGB input with bench" loading="lazy">
         <img src="./static/images/raw/objectwise/khronos_bench.png" alt="Khronos bench reconstruction" loading="lazy">
-        <img src="./static/images/raw/objectwise/ours_chair.png" alt="Hydra++ bench reconstruction" loading="lazy">
+        <img src="./static/images/raw/objectwise/ours_bench.png" alt="Hydra++ bench reconstruction" loading="lazy">
       </div>
       <figcaption>
         Outdoor object-level close-ups from the hybrid sensor-fusion mode.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="content-section" id="rmcc" data-toc-title="RMCC">
+    <h2><b>Reprojection-Mask Consistency Check</b></h2>
+    <p>
+      RMCC samples points from the predicted mesh, reprojects them into the selected image, and compares the reprojected mask with the observed object mask.
+      Predictions with insufficient overlap are rejected, filtering degenerate shapes caused by partial masks, over-segmentation, or poor viewpoints.
+    </p>
+
+    <figure class="figure-container">
+      <div class="rmcc-case-grid">
+        <div>
+          <img src="./static/images/raw/rmcc/rmcc_success_case.png" alt="RMCC valid shape prediction case" loading="lazy">
+          <span>Accepted prediction</span>
+        </div>
+        <div>
+          <img src="./static/images/raw/rmcc/rmcc_failure_case.png" alt="RMCC invalid shape prediction case" loading="lazy">
+          <span>Rejected prediction</span>
+        </div>
+      </div>
+      <img class="rmcc-legend" src="./static/images/raw/rmcc/rmcc_legend.png" alt="RMCC legend" loading="lazy">
+      <figcaption>
+        RMCC accepts predictions when the projected shape mask agrees with the observed mask and rejects inconsistent silhouettes.
+      </figcaption>
+    </figure>
+
+    <figure class="figure-container">
+      <div class="rmcc-chart-grid">
+        <img src="./static/images/raw/rmcc/hydra2_precision.png" alt="RMCC precision curve" loading="lazy">
+        <img src="./static/images/raw/rmcc/hydra2_recall.png" alt="RMCC recall curve" loading="lazy">
+        <img src="./static/images/raw/rmcc/hydra2_f1.png" alt="RMCC F1 curve" loading="lazy">
+      </div>
+      <figcaption>
+        RMCC increases precision across relative thresholds and yields consistently higher F1 despite a modest recall trade-off.
       </figcaption>
     </figure>
   </section>
@@ -286,7 +461,6 @@
   <footer class="site-footer">
     <div class="footer-links">
       <a href="./static/pdfs/hydra-plusplus.pdf" aria-label="Paper PDF"><i class="fas fa-file-pdf"></i></a>
-      <a href="https://github.com/MIT-SPARK/Hydra" aria-label="Code repository"><i class="fab fa-github"></i></a>
     </div>
     <p>
       Website adapted from a research project-page style inspired by the DexHub page. Original template lineage remains credited to Nerfies.
