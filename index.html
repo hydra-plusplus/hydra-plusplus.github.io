@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Hydra++: Real-Time Hierarchical 3D Scene Graph Construction With Object-Level Shape Estimation">
+  <meta name="keywords" content="Hydra++, Hydra, 3D scene graph, object shape estimation, robotics, SLAM">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hydra++: Real-Time Hierarchical 3D Scene Graph Construction With Object-Level Shape Estimation</title>
+
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script defer src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="toc-nav" aria-label="Page navigation">
+  <h3>Contents</h3>
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#contributions">Contributions</a></li>
+    <li><a href="#method">Method</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#bibtex">BibTeX</a></li>
+  </ul>
+</nav>
+
+<main class="page-shell">
+  <header class="paper-header">
+    <h1>Hydra++: Real-Time Hierarchical 3D Scene Graph Construction With Object-Level Shape Estimation</h1>
+
+    <div class="authors">
+      <span>Hyungtae Lim<sup>1</sup></span>
+      <span>Nathan Hughes<sup>1</sup></span>
+      <span>Xihang Yu<sup>1</sup></span>
+      <span>Ruihan Xu<sup>1</sup></span>
+      <span>Yun Chang<sup>1</sup></span>
+      <span>Jingnan Shi<sup>1</sup></span>
+      <span>Rajat Talak<sup>2</sup></span>
+      <span>Luca Carlone<sup>1</sup></span>
+    </div>
+
+    <div class="affiliations">
+      <span><sup>1</sup>Massachusetts Institute of Technology</span>
+      <span><sup>2</sup>National University of Singapore</span>
+    </div>
+
+    <div class="paper-info">(TBU)</div>
+
+    <div class="links" aria-label="Project links">
+      <a href="./static/pdfs/hydra-plusplus.pdf">
+        <i class="fas fa-file-pdf" aria-hidden="true"></i>
+        <span>Full Paper</span>
+      </a>
+      <span class="link-placeholder">
+        <i class="ai ai-arxiv" aria-hidden="true"></i>
+        <span>arXiv (TBU)</span>
+      </span>
+      <span class="link-placeholder">
+        <i class="fab fa-youtube" aria-hidden="true"></i>
+        <span>Video (TBU)</span>
+      </span>
+      <a href="https://github.com/MIT-SPARK/Hydra">
+        <i class="fab fa-github" aria-hidden="true"></i>
+        <span>Code</span>
+      </a>
+    </div>
+
+    <hr>
+
+    <div class="callout">
+      Publication venue, arXiv link, video link, and final citation are left as <strong>(TBU)</strong> until confirmed.
+    </div>
+  </header>
+
+  <section class="content-section" id="overview" data-toc-title="Overview">
+    <figure class="figure-container hero-figure">
+      <img src="./static/images/hydrapp_teaser.jpg" alt="Hydra++ indoor and outdoor 3D scene graph reconstructions">
+      <figcaption>
+        Hydra++ constructs hierarchical 3D scene graphs with object-level shape reconstruction in indoor RGB-D and outdoor hybrid LiDAR-camera settings.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="content-section" id="abstract" data-toc-title="Abstract">
+    <h2><b>Abstract</b></h2>
+    <p>
+      3D scene graphs provide a hierarchical abstraction of environments by encoding spatial entities and their relationships.
+      Existing scene graph systems usually model object geometry with partial point clouds or class-level CAD templates,
+      limiting instance-specific shape detail. Hydra++ integrates category-agnostic shape estimation into a hierarchical
+      3D scene graph pipeline, adds a reprojection-mask consistency check to reject degenerate shape predictions, and
+      supports a hybrid LiDAR-camera configuration for large-scale outdoor operation. Experiments in simulation and
+      real-world outdoor campus scenes show improved object-level and scene-level reconstruction quality.
+    </p>
+  </section>
+
+  <section class="content-section" id="contributions" data-toc-title="Contributions">
+    <h2>What <b>Hydra++</b> adds</h2>
+    <p>
+      <b>Object-level shape estimation &nbsp;|&nbsp;</b>
+      Learning-based estimators reconstruct full object meshes from partial observations, improving the geometry stored in the scene graph.
+    </p>
+    <p>
+      <b>Reprojection-mask consistency check &nbsp;|&nbsp;</b>
+      RMCC rejects unreliable predictions caused by partial views or imprecise instance segmentation.
+    </p>
+    <p>
+      <b>Hybrid outdoor mapping &nbsp;|&nbsp;</b>
+      LiDAR supplies metric scene structure while camera observations support object shape estimation for outdoor campus-scale scenes.
+    </p>
+    <p>
+      <b>Estimator trade-off study &nbsp;|&nbsp;</b>
+      The default CRISP-based configuration targets online operation, while SAM3D is studied as a modular alternative for generalization-latency trade-offs.
+    </p>
+  </section>
+
+  <section class="content-section" id="method" data-toc-title="Method">
+    <h2><b>Method</b></h2>
+    <p>
+      Hydra++ extends the Hydra and Khronos scene graph pipeline with shape estimation, RMCC verification, and a hybrid LiDAR-camera mode.
+    </p>
+
+    <figure class="figure-container">
+      <img src="./static/images/hydrapp_pipeline.jpg" alt="Hydra++ system pipeline">
+      <figcaption>
+        Sensor data, semantic segmentation, and odometry flow through active-window mapping, object tracking, shape estimation, RMCC, and scene graph construction.
+      </figcaption>
+    </figure>
+
+    <figure class="figure-container">
+      <img src="./static/images/hydrapp_ground_integration.jpg" alt="Ground-aware adaptive integration for outdoor reconstruction">
+      <figcaption>
+        Ground-aware adaptive TSDF integration improves outdoor mesh completeness under sparse and oblique LiDAR observations.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="content-section" id="results" data-toc-title="Results">
+    <h2><b>Results</b></h2>
+    <p>
+      Hydra++ reconstructs instance-level geometry rather than relying only on partial observations or fixed class templates.
+      In outdoor scenes, the hybrid LiDAR-camera mode recovers object meshes for examples such as a fire hydrant, car, and bench.
+    </p>
+
+    <figure class="figure-container">
+      <img src="./static/images/hydrapp_shape_comparison.jpg" alt="Hydra++ shape comparison with other object representations">
+      <figcaption>
+        Qualitative comparison against other object representations.
+      </figcaption>
+    </figure>
+
+    <figure class="figure-container">
+      <img src="./static/images/hydrapp_outdoor_objects.jpg" alt="Hydra++ outdoor object reconstruction examples">
+      <figcaption>
+        Outdoor object-level close-ups from the hybrid sensor-fusion mode.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="content-section" id="bibtex" data-toc-title="BibTeX">
+    <h2><b>BibTeX</b></h2>
+    <div class="code-container">
+      <pre><code>@misc{limTBUhydrapp,
+  title        = {{Hydra++}: Real-Time Hierarchical 3D Scene Graph Construction With Object-Level Shape Estimation},
+  author       = {Lim, Hyungtae and Hughes, Nathan and Yu, Xihang and Xu, Ruihan and Chang, Yun and Shi, Jingnan and Talak, Rajat and Carlone, Luca},
+  howpublished = {(TBU)},
+  year         = {(TBU)}
+}</code></pre>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="./static/pdfs/hydra-plusplus.pdf" aria-label="Paper PDF"><i class="fas fa-file-pdf"></i></a>
+      <a href="https://github.com/MIT-SPARK/Hydra" aria-label="Code repository"><i class="fab fa-github"></i></a>
+    </div>
+    <p>
+      Website adapted from a research project-page style inspired by the DexHub page. Original template lineage remains credited to Nerfies.
+    </p>
+  </footer>
+</main>
+
+</body>
+</html>

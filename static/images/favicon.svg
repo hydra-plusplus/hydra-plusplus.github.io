@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Hydra++">
+  <rect width="64" height="64" rx="14" fill="#172033"/>
+  <path d="M16 43V18h6v9h20v-9h6v25h-6V32H22v11h-6z" fill="#f8fafc"/>
+  <path d="M49 18h5v5h5v4h-5v5h-5v-5h-5v-4h5v-5z" fill="#52d1a9"/>
+  <path d="M49 36h5v5h5v4h-5v5h-5v-5h-5v-4h5v-5z" fill="#8ab4ff"/>
+</svg>
