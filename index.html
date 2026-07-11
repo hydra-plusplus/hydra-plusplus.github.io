@@ -272,11 +272,11 @@
       </figcaption>
     </figure>
 
-    <div class="metric-dashboard" data-animate-bars aria-label="uHumans2 quantitative comparison at 0.2 and 0.5 meter thresholds">
+    <div class="metric-dashboard" data-animate-bars aria-label="uHumans2 quantitative comparison at a 0.2 meter matching threshold">
       <div class="metric-dashboard-header">
         <div>
           <span class="chart-kicker">uHumans2 object-level metrics</span>
-          <h3>Quantitative Comparison by Matching Threshold</h3>
+          <h3>Quantitative Comparison</h3>
         </div>
         <div class="chart-legend" aria-label="Chart legend">
           <span><i style="--legend-color: #8a98a4;"></i>SlideSLAM</span>
@@ -433,149 +433,8 @@
         </div>
       </section>
 
-      <section class="threshold-panel" aria-label="Evaluation at tau d equals 0.5 meters">
-        <div class="threshold-heading">
-          <h4>&tau;<sub>d</sub> = 0.5 m</h4>
-          <span>Relaxed centroid matching</span>
-        </div>
-
-        <div class="metric-grid">
-          <article class="metric-card">
-            <div class="metric-card-header">
-              <h4>F1 Score &uarr;</h4>
-            </div>
-            <div class="metric-bars">
-              <div class="metric-row" style="--method-color: #8a98a4; --bar-target: 33.6%;">
-                <span class="metric-label">SlideSLAM</span>
-                <span class="bar-track"><span class="bar-fill"></span></span>
-                <span class="metric-value">0.265</span>
-              </div>
-              <div class="metric-row best" style="--method-color: #3f83cc; --bar-target: 100%;">
-                <span class="metric-label">Hydra</span>
-                <span class="bar-track"><span class="bar-fill"></span></span>
-                <span class="metric-value">0.789</span>
-              </div>
-              <div class="metric-row" style="--method-color: #8f67bd; --bar-target: 88.6%;">
-                <span class="metric-label">Khronos</span>
-                <span class="bar-track"><span class="bar-fill"></span></span>
-                <span class="metric-value">0.699</span>
-              </div>
-              <div class="metric-row" style="--method-color: #d49a35; --bar-target: 95.3%;">
-                <span class="metric-label">Hydra++ w/o RMCC</span>
-                <span class="bar-track"><span class="bar-fill"></span></span>
-                <span class="metric-value">0.752</span>
-              </div>
-              <div class="metric-row" style="--method-color: #169a65; --bar-target: 98.4%;">
-                <span class="metric-label">Hydra++</span>
-                <span class="bar-track"><span class="bar-fill"></span></span>
-                <span class="metric-value">0.776</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="metric-card">
-            <div class="metric-card-header">
-              <h4>Chamfer Distance &darr;</h4>
-            </div>
-            <div class="metric-bars">
-              <div class="metric-row" style="--method-color: #8a98a4; --bar-target: 39.2%;">
-                <span class="metric-label">SlideSLAM</span>
-                <span class="bar-track"><span class="bar-fill"></span></span>
-                <span class="metric-value">0.051</span>
-              </div>
-              <div class="metric-row" style="--method-color: #3f83cc; --bar-target: 27.8%;">
-                <span class="metric-label">Hydra</span>
-                <span class="bar-track"><span class="bar-fill"></span></span>
-                <span class="metric-value">0.072</span>
-              </div>
-              <div class="metric-row" style="--method-color: #8f67bd; --bar-target: 22.0%;">
-                <span class="metric-label">Khronos</span>
-                <span class="bar-track"><span class="bar-fill"></span></span>
-                <span class="metric-value">0.091</span>
-              </div>
-              <div class="metric-row" style="--method-color: #d49a35; --bar-target: 62.5%;">
-                <span class="metric-label">Hydra++ w/o RMCC</span>
-                <span class="bar-track"><span class="bar-fill"></span></span>
-                <span class="metric-value">0.032</span>
-              </div>
-              <div class="metric-row best" style="--method-color: #169a65; --bar-target: 100%;">
-                <span class="metric-label">Hydra++</span>
-                <span class="bar-track"><span class="bar-fill"></span></span>
-                <span class="metric-value">0.020</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="metric-card">
-            <div class="metric-card-header">
-              <h4>Bounding-Box IoU &uarr;</h4>
-            </div>
-            <div class="metric-bars">
-              <div class="metric-row" style="--method-color: #8a98a4; --bar-target: 66.6%;">
-                <span class="metric-label">SlideSLAM</span>
-                <span class="bar-track"><span class="bar-fill"></span></span>
-                <span class="metric-value">0.436</span>
-              </div>
-              <div class="metric-row" style="--method-color: #3f83cc; --bar-target: 62.9%;">
-                <span class="metric-label">Hydra</span>
-                <span class="bar-track"><span class="bar-fill"></span></span>
-                <span class="metric-value">0.412</span>
-              </div>
-              <div class="metric-row" style="--method-color: #8f67bd; --bar-target: 54.7%;">
-                <span class="metric-label">Khronos</span>
-                <span class="bar-track"><span class="bar-fill"></span></span>
-                <span class="metric-value">0.358</span>
-              </div>
-              <div class="metric-row" style="--method-color: #d49a35; --bar-target: 88.9%;">
-                <span class="metric-label">Hydra++ w/o RMCC</span>
-                <span class="bar-track"><span class="bar-fill"></span></span>
-                <span class="metric-value">0.582</span>
-              </div>
-              <div class="metric-row best" style="--method-color: #169a65; --bar-target: 100%;">
-                <span class="metric-label">Hydra++</span>
-                <span class="bar-track"><span class="bar-fill"></span></span>
-                <span class="metric-value">0.655</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="metric-card">
-            <div class="metric-card-header">
-              <h4>Volumetric IoU &uarr;</h4>
-            </div>
-            <div class="metric-bars">
-              <div class="metric-row" style="--method-color: #8a98a4; --bar-target: 25.4%;">
-                <span class="metric-label">SlideSLAM</span>
-                <span class="bar-track"><span class="bar-fill"></span></span>
-                <span class="metric-value">0.134</span>
-              </div>
-              <div class="metric-row" style="--method-color: #3f83cc; --bar-target: 46.6%;">
-                <span class="metric-label">Hydra</span>
-                <span class="bar-track"><span class="bar-fill"></span></span>
-                <span class="metric-value">0.246</span>
-              </div>
-              <div class="metric-row" style="--method-color: #8f67bd; --bar-target: 45.3%;">
-                <span class="metric-label">Khronos</span>
-                <span class="bar-track"><span class="bar-fill"></span></span>
-                <span class="metric-value">0.239</span>
-              </div>
-              <div class="metric-row" style="--method-color: #d49a35; --bar-target: 85.4%;">
-                <span class="metric-label">Hydra++ w/o RMCC</span>
-                <span class="bar-track"><span class="bar-fill"></span></span>
-                <span class="metric-value">0.451</span>
-              </div>
-              <div class="metric-row best" style="--method-color: #169a65; --bar-target: 100%;">
-                <span class="metric-label">Hydra++</span>
-                <span class="bar-track"><span class="bar-fill"></span></span>
-                <span class="metric-value">0.528</span>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>
-
       <div class="chart-notes">
-        <span>Bars are normalized within each threshold and metric.</span>
+        <span>Bars are normalized within each metric.</span>
         <span>For metrics marked with &darr;, bar length is inverted so longer remains better.</span>
       </div>
     </div>
