@@ -516,11 +516,18 @@ hr {
   border-radius: inherit;
   display: block;
   height: 100%;
-  transition: width 1s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: none;
+  width: var(--bar-target);
+}
+
+.metric-row[style*="#d49a35"] .bar-fill,
+.metric-row[style*="#169a65"] .bar-fill {
+  transition: width 2.4s cubic-bezier(0.16, 1, 0.3, 1);
   width: 0;
 }
 
-.metric-dashboard.is-visible .bar-fill {
+.metric-dashboard.is-visible .metric-row[style*="#d49a35"] .bar-fill,
+.metric-dashboard.is-visible .metric-row[style*="#169a65"] .bar-fill {
   width: var(--bar-target);
 }
 
