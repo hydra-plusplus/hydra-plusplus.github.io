@@ -197,6 +197,11 @@ hr {
   max-height: none;
 }
 
+.motivation-figure img {
+  border-radius: 4px;
+  max-height: none;
+}
+
 .wide-figure {
   margin-left: 0;
   max-width: none;

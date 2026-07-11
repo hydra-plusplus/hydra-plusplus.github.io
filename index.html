@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="./static/images/favicon.svg">
+  <link rel="icon" type="image/png" href="./static/images/favicon.png">
 
   <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script defer src="./static/js/index.js"></script>
@@ -22,6 +22,7 @@
   <ul>
     <li><a href="#overview">Overview</a></li>
     <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#motivation">Motivation</a></li>
     <li><a href="#contributions">Contributions</a></li>
     <li><a href="#method">Method</a></li>
     <li><a href="#evaluation">Evaluation</a></li>
@@ -99,6 +100,22 @@
       supports a hybrid LiDAR-camera configuration for large-scale outdoor operation. Experiments in simulation and
       real-world outdoor scenes show improved object-level and scene-level reconstruction quality.
     </p>
+  </section>
+
+  <section class="content-section" id="motivation" data-toc-title="Motivation">
+    <h2><b>Motivation</b></h2>
+    <p>
+      Scene-level abstractions are useful for reasoning about semantic context, object relations, and navigable structure, but they are often too coarse for manipulation.
+      Mesh-level geometry is directly actionable for interaction and planning, yet it usually lacks the relational context needed for whole-scene understanding.
+      Hydra++ targets this gap by storing completed object-level geometry inside a hierarchical 3D scene graph.
+    </p>
+
+    <figure class="figure-container motivation-figure">
+      <img src="./static/images/motivation.png" alt="Motivation comparing scene-level abstraction and mesh-based actionable geometry">
+      <figcaption>
+        Hydra++ bridges scene-level relational abstraction and object-level actionable geometry.
+      </figcaption>
+    </figure>
   </section>
 
   <section class="content-section" id="contributions" data-toc-title="Contributions">
