@@ -24,11 +24,11 @@
     <li><a href="#abstract">Abstract</a></li>
     <li><a href="#motivation">Motivation</a></li>
     <li><a href="#contributions">Contributions</a></li>
-    <li><a href="#method">Method</a></li>
+    <li><a href="#pipeline">Pipeline</a></li>
+    <li><a href="#rmcc">RMCC</a></li>
     <li><a href="#evaluation">Evaluation</a></li>
     <li><a href="#shape-models">Shape Models</a></li>
     <li><a href="#outdoor">Outdoor</a></li>
-    <li><a href="#rmcc">RMCC</a></li>
     <li><a href="#bibtex">BibTeX</a></li>
   </ul>
 </nav>
@@ -146,8 +146,8 @@
     </div>
   </section>
 
-  <section class="content-section" id="method" data-toc-title="Method">
-    <h2><b>Method</b></h2>
+  <section class="content-section" id="pipeline" data-toc-title="Pipeline">
+    <h2><b>Pipeline</b></h2>
     <p>
       Hydra++ builds on the Hydra and Khronos 3D scene graph pipeline. It maintains an active-window metric-semantic map,
       tracks object candidates over time, then invokes a shape estimator when an object track leaves the active window.
@@ -189,6 +189,43 @@
       </div>
       <figcaption>
         The adaptive strategy provides controlled negative support behind ground surfaces, restoring TSDF sign transitions that are often missing for sparse long-range LiDAR returns.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="content-section" id="rmcc" data-toc-title="RMCC">
+    <h2><b>Reprojection-Mask Consistency Check (RMCC)</b></h2>
+    <p>
+      The reprojection-mask consistency check (RMCC) samples points from the predicted mesh, reprojects them into the selected image,
+      and compares the reprojected mask with the observed object mask.
+      Predictions with insufficient overlap are rejected, filtering degenerate shapes caused by partial masks, over-segmentation, or poor viewpoints.
+    </p>
+
+    <figure class="figure-container">
+      <div class="rmcc-case-grid">
+        <div>
+          <img src="./static/images/raw/rmcc/rmcc_success_case.png" alt="RMCC valid shape prediction case" loading="lazy">
+          <span>Accepted prediction</span>
+        </div>
+        <div>
+          <img src="./static/images/raw/rmcc/rmcc_failure_case.png" alt="RMCC invalid shape prediction case" loading="lazy">
+          <span>Rejected prediction</span>
+        </div>
+      </div>
+      <img class="rmcc-legend" src="./static/images/raw/rmcc/rmcc_legend.png" alt="RMCC legend" loading="lazy">
+      <figcaption>
+        RMCC accepts predictions when the projected shape mask agrees with the observed mask and rejects inconsistent silhouettes.
+      </figcaption>
+    </figure>
+
+    <figure class="figure-container">
+      <div class="rmcc-chart-grid">
+        <img src="./static/images/raw/rmcc/hydra2_precision.png" alt="RMCC precision curve" loading="lazy">
+        <img src="./static/images/raw/rmcc/hydra2_recall.png" alt="RMCC recall curve" loading="lazy">
+        <img src="./static/images/raw/rmcc/hydra2_f1.png" alt="RMCC F1 curve" loading="lazy">
+      </div>
+      <figcaption>
+        RMCC increases precision across relative thresholds and yields consistently higher F1 despite a modest recall trade-off.
       </figcaption>
     </figure>
   </section>
@@ -429,42 +466,6 @@
       </div>
       <figcaption>
         Outdoor object-level close-ups from the hybrid sensor-fusion mode.
-      </figcaption>
-    </figure>
-  </section>
-
-  <section class="content-section" id="rmcc" data-toc-title="RMCC">
-    <h2><b>Reprojection-Mask Consistency Check</b></h2>
-    <p>
-      RMCC samples points from the predicted mesh, reprojects them into the selected image, and compares the reprojected mask with the observed object mask.
-      Predictions with insufficient overlap are rejected, filtering degenerate shapes caused by partial masks, over-segmentation, or poor viewpoints.
-    </p>
-
-    <figure class="figure-container">
-      <div class="rmcc-case-grid">
-        <div>
-          <img src="./static/images/raw/rmcc/rmcc_success_case.png" alt="RMCC valid shape prediction case" loading="lazy">
-          <span>Accepted prediction</span>
-        </div>
-        <div>
-          <img src="./static/images/raw/rmcc/rmcc_failure_case.png" alt="RMCC invalid shape prediction case" loading="lazy">
-          <span>Rejected prediction</span>
-        </div>
-      </div>
-      <img class="rmcc-legend" src="./static/images/raw/rmcc/rmcc_legend.png" alt="RMCC legend" loading="lazy">
-      <figcaption>
-        RMCC accepts predictions when the projected shape mask agrees with the observed mask and rejects inconsistent silhouettes.
-      </figcaption>
-    </figure>
-
-    <figure class="figure-container">
-      <div class="rmcc-chart-grid">
-        <img src="./static/images/raw/rmcc/hydra2_precision.png" alt="RMCC precision curve" loading="lazy">
-        <img src="./static/images/raw/rmcc/hydra2_recall.png" alt="RMCC recall curve" loading="lazy">
-        <img src="./static/images/raw/rmcc/hydra2_f1.png" alt="RMCC F1 curve" loading="lazy">
-      </div>
-      <figcaption>
-        RMCC increases precision across relative thresholds and yields consistently higher F1 despite a modest recall trade-off.
       </figcaption>
     </figure>
   </section>
