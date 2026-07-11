@@ -423,6 +423,12 @@
       Outdoor reconstruction combines LiDAR-driven metric mapping with camera-driven object shape estimation. The hybrid mode improves scene mesh continuity
       and recovers object-level geometry for fire hydrants, cars, and benches in the Kimera-Multi sequence.
     </p>
+    <p class="note">
+      These outdoor results should be read as a deployment study rather than a complete outdoor benchmark. A more rigorous outdoor evaluation remains important
+      because public datasets rarely provide scene-scale, instance-level mesh ground truth from a mapping perspective, and mask-based checks such as RMCC do not
+      explicitly verify metric depth consistency. Future outdoor benchmarks should quantify both object detection and mesh accuracy under noisy segmentation,
+      heavy occlusion, and geometrically plausible but incorrect shape predictions.
+    </p>
 
     <figure class="figure-container scene-mesh-figure">
       <div class="scene-mesh-grid">
