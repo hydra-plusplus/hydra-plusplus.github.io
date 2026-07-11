@@ -12,11 +12,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="./static/css/index.css?v=20260711-ours-bars">
+  <link rel="stylesheet" href="./static/css/index.css?v=20260712-video">
   <link rel="icon" type="image/png" href="./static/images/favicon.png">
 
   <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script defer src="./static/js/index.js?v=20260711-ours-bars"></script>
+  <script defer src="./static/js/index.js?v=20260712-video"></script>
 </head>
 <body>
 
@@ -92,7 +92,28 @@
 
   <section class="content-section" id="overview" data-toc-title="Overview">
     <figure class="figure-container hero-figure">
-      <img src="./static/images/hydrapp_teaser.png" alt="Hydra++ indoor and outdoor 3D scene graph reconstructions">
+      <div class="hero-media">
+        <video
+          class="hero-video"
+          data-project-video
+          autoplay
+          muted
+          loop
+          playsinline
+          controls
+          preload="metadata"
+          poster="./static/images/hydrapp_teaser.png"
+          aria-label="Hydra++ real-time indoor and outdoor 3D scene graph construction"
+          hidden>
+          <source src="./static/videos/hydrapp_teaser.mp4" type="video/mp4">
+          Your browser does not support embedded video. Watch the
+          <a href="https://www.youtube.com/watch?v=CklXMpqG_Vk">Hydra++ project video on YouTube</a>.
+        </video>
+        <img
+          class="hero-video-fallback"
+          src="./static/images/hydrapp_teaser.png"
+          alt="Hydra++ indoor and outdoor 3D scene graph reconstructions">
+      </div>
       <figcaption>
         Hydra++ constructs hierarchical 3D scene graphs with object-level shape reconstruction in indoor RGB-D and outdoor hybrid LiDAR-camera settings.
       </figcaption>

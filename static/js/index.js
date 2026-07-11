@@ -3,6 +3,44 @@ document.addEventListener('DOMContentLoaded', () => {
   const tocItems = Array.from(document.querySelectorAll('.toc-nav li'));
   const sections = Array.from(document.querySelectorAll('[data-toc-title]'));
   const animatedBarBlocks = Array.from(document.querySelectorAll('[data-animate-bars]'));
+  const projectVideos = Array.from(document.querySelectorAll('[data-project-video]'));
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const showVideoFallback = (video) => {
+    const fallback = video.parentElement.querySelector('.hero-video-fallback');
+    video.hidden = true;
+
+    if (fallback) {
+      fallback.hidden = false;
+    }
+  };
+
+  projectVideos.forEach((video) => {
+    const fallback = video.parentElement.querySelector('.hero-video-fallback');
+    const revealVideo = () => {
+      video.hidden = false;
+
+      if (fallback) {
+        fallback.hidden = true;
+      }
+    };
+
+    video.muted = true;
+    video.addEventListener('error', () => showVideoFallback(video));
+    video.addEventListener('canplay', revealVideo, { once: true });
+    video.querySelectorAll('source').forEach((source) => {
+      source.addEventListener('error', () => showVideoFallback(video));
+    });
+
+    if (prefersReducedMotion) {
+      video.removeAttribute('autoplay');
+      video.pause();
+    }
+
+    if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+      revealVideo();
+    }
+  });
 
   internalLinks.forEach((link) => {
     link.addEventListener('click', (event) => {
@@ -64,5 +102,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     animatedBarBlocks.forEach((block) => barObserver.observe(block));
+  }
+
+  if (!prefersReducedMotion && projectVideos.length > 0) {
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.target.hidden) {
+          return;
+        }
+
+        if (!entry.isIntersecting) {
+          entry.target.pause();
+          return;
+        }
+
+        const playRequest = entry.target.play();
+        if (playRequest) {
+          playRequest.catch(() => {});
+        }
+      });
+    }, {
+      threshold: 0.25,
+    });
+
+    projectVideos.forEach((video) => videoObserver.observe(video));
   }
 });

@@ -209,9 +209,32 @@ hr {
   max-width: 100%;
 }
 
-.hero-figure img {
+.hero-media {
+  background: #f4f7f8;
   border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.hero-video,
+.hero-video-fallback {
+  display: block;
+  height: auto;
+  margin: 0 auto;
   max-height: none;
+  width: 100%;
+}
+
+.hero-video {
+  background: #f4f7f8;
+  max-height: 75vh;
+  object-fit: contain;
+}
+
+.hero-video[hidden],
+.hero-video-fallback[hidden] {
+  display: none;
 }
 
 .motivation-figure img {
