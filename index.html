@@ -234,6 +234,8 @@
     <h2><b>Evaluation</b></h2>
     <p>
       Hydra++ is evaluated on uHumans2 for indoor object-level scene graph quality and on Kimera-Multi for outdoor hybrid sensor operation.
+      Unlike the original Hydra evaluation, which focused on batch and incremental scene graph construction modes,
+      this evaluation explicitly compares predicted object nodes against real 3D object instances by measuring distances in 3D space.
       Object detections are matched by same-class centroid distance, while matched meshes are evaluated using Chamfer distance,
       3D bounding-box IoU, and volumetric IoU.
     </p>
