@@ -95,6 +95,10 @@ hr {
   margin: 0 8px 0.25rem;
 }
 
+.author-break {
+  display: block;
+}
+
 .affiliations {
   color: #59666b;
   font-size: 0.98rem;
@@ -147,15 +151,28 @@ hr {
   text-decoration: none;
 }
 
+.callout-stack {
+  margin: 0 auto 2rem;
+  max-width: 720px;
+}
+
 .callout {
   background: var(--accent-bg);
   border-left: 4px solid #1d9ab7;
   border-radius: 6px;
   color: var(--accent-ink);
-  margin: 0 auto 2rem;
-  max-width: 720px;
+  margin: 0 auto;
   padding: 0.85rem 1rem;
   text-align: center;
+}
+
+.callout-stack .callout {
+  margin-bottom: 0.7rem;
+  max-width: none;
+}
+
+.callout-stack .callout:last-child {
+  margin-bottom: 0;
 }
 
 .content-section {
@@ -647,6 +664,10 @@ hr {
   .affiliations span {
     display: block;
     margin: 0.18rem 0;
+  }
+
+  .author-break {
+    display: none;
   }
 
   .links {
