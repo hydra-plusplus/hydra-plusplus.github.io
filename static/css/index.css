@@ -374,6 +374,50 @@ hr {
   color: #169a65;
 }
 
+.tau-note {
+  background: #f2f7f8;
+  border-left: 3px solid #9bcbd6;
+  border-radius: 6px;
+  color: #4f626b;
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.45;
+  margin: 0 0 1rem;
+  padding: 0.7rem 0.85rem;
+  text-align: left;
+}
+
+.threshold-panel {
+  border-top: 1px solid #e7edf0;
+  padding-top: 1rem;
+}
+
+.threshold-panel + .threshold-panel {
+  margin-top: 1.1rem;
+}
+
+.threshold-heading {
+  align-items: baseline;
+  display: flex;
+  gap: 0.7rem;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.threshold-heading h4 {
+  color: #20323b;
+  font-size: 1.02rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.threshold-heading span {
+  color: #6c7d85;
+  flex: 0 0 auto;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
 .chart-legend {
   align-items: center;
   display: flex;
@@ -445,12 +489,12 @@ hr {
   align-items: center;
   display: grid;
   gap: 0.55rem;
-  grid-template-columns: 106px minmax(0, 1fr) 48px;
+  grid-template-columns: 138px minmax(0, 1fr) 48px;
 }
 
 .metric-label {
   color: #52656e;
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   font-weight: 700;
   overflow: hidden;
   text-align: left;
@@ -844,9 +888,19 @@ hr {
     gap: 0.2rem;
   }
 
+  .threshold-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .tau-note {
+    font-size: 0.8rem;
+  }
+
   .metric-row {
     gap: 0.45rem;
-    grid-template-columns: 96px minmax(0, 1fr) 44px;
+    grid-template-columns: 124px minmax(0, 1fr) 44px;
   }
 
   .metric-label,
