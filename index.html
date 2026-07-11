@@ -57,7 +57,7 @@
       <span><sup>2</sup>National University of Singapore</span>
     </div>
 
-    <div class="paper-info">(TBU)</div>
+    <div class="paper-info">Accepted to IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2026</div>
 
     <div class="links" aria-label="Project links">
       <a href="./static/pdfs/hydra-plusplus.pdf">
@@ -82,10 +82,10 @@
 
     <div class="callout-stack">
       <div class="callout">
-        Publication venue, arXiv link, and final citation are left as <strong>(TBU)</strong> until confirmed.
+        arXiv link and final page numbers are left as (TBU) until confirmed.
       </div>
       <div class="callout">
-        Code will be integrated into the Hydra repository. Release timing: <strong>(TBU)</strong>.
+        Code will be integrated into the Hydra repository. Release timing: (TBU).
       </div>
     </div>
   </header>
@@ -700,7 +700,7 @@
   </section>
 
   <section class="content-section" id="outdoor" data-toc-title="Outdoor">
-    <h2><b>Outdoor Hybrid Mapping</b></h2>
+    <h2><b>Outdoor Hybrid Mapping in MIT Campus</b></h2>
     <p>
       Outdoor reconstruction combines LiDAR-driven metric mapping with camera-driven object shape estimation. The hybrid mode improves scene mesh continuity
       and recovers object-level geometry for fire hydrants, cars, and benches in the Kimera-Multi sequence.
@@ -734,25 +734,25 @@
 
     <figure class="figure-container wide-figure">
       <div class="objectwise-grid" aria-label="Outdoor object-level close-up results">
-        <div class="grid-heading"></div>
-        <div class="grid-heading">RGB input</div>
-        <div class="grid-heading">Khronos</div>
-        <div class="grid-heading">Hydra++</div>
-
-        <div class="row-label">Fire hydrant</div>
+        <div class="row-label" data-label="Fire hydrant">Fire hydrant</div>
         <img src="./static/images/raw/objectwise/000009.png" alt="RGB input with fire hydrant" loading="lazy">
         <img src="./static/images/raw/objectwise/khronos_firehydrant.png" alt="Khronos fire hydrant reconstruction" loading="lazy">
         <img src="./static/images/raw/objectwise/ours_firehydrant.png" alt="Hydra++ fire hydrant reconstruction" loading="lazy">
 
-        <div class="row-label">Car</div>
+        <div class="row-label" data-label="Car">Car</div>
         <img src="./static/images/raw/objectwise/000032.png" alt="RGB input with car" loading="lazy">
         <img src="./static/images/raw/objectwise/khronos_car.png" alt="Khronos car reconstruction" loading="lazy">
         <img src="./static/images/raw/objectwise/ours_car.png" alt="Hydra++ car reconstruction" loading="lazy">
 
-        <div class="row-label">Bench</div>
+        <div class="row-label" data-label="Bench">Bench</div>
         <img src="./static/images/raw/objectwise/000014.png" alt="RGB input with bench" loading="lazy">
         <img src="./static/images/raw/objectwise/khronos_bench.png" alt="Khronos bench reconstruction" loading="lazy">
         <img src="./static/images/raw/objectwise/ours_bench.png" alt="Hydra++ bench reconstruction" loading="lazy">
+
+        <div class="grid-heading heading-spacer" aria-hidden="true"></div>
+        <div class="grid-heading">RGB input</div>
+        <div class="grid-heading">Khronos</div>
+        <div class="grid-heading">Hydra++</div>
       </div>
       <figcaption>
         Outdoor object-level close-ups from the hybrid sensor-fusion mode.
@@ -763,11 +763,11 @@
   <section class="content-section" id="bibtex" data-toc-title="BibTeX">
     <h2><b>BibTeX</b></h2>
     <div class="code-container">
-      <pre><code>@misc{limTBUhydrapp,
+      <pre><code>@inproceedings{Lim2026iros-Hydrapp,
   title        = {{Hydra++}: Real-Time Hierarchical 3D Scene Graph Construction With Object-Level Shape Estimation},
   author       = {Lim, Hyungtae and Hughes, Nathan and Yu, Xihang and Xu, Ruihan and Chang, Yun and Shi, Jingnan and Talak, Rajat and Carlone, Luca},
-  howpublished = {(TBU)},
-  year         = {(TBU)}
+  booktitle    = {Proceedings of the IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  year         = {2026}
 }</code></pre>
     </div>
   </section>
