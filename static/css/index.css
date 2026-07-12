@@ -211,7 +211,8 @@ hr {
 
 .hero-media {
   background: #f4f7f8;
-  border-radius: 4px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(32, 50, 59, 0.14);
   overflow: hidden;
   position: relative;
   width: 100%;
