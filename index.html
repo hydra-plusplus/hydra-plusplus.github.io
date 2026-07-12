@@ -12,11 +12,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="./static/css/index.css?v=20260712-video">
+  <link rel="stylesheet" href="./static/css/index.css?v=20260712-two-teasers">
   <link rel="icon" type="image/png" href="./static/images/favicon.png">
 
   <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script defer src="./static/js/index.js?v=20260712-video"></script>
+  <script defer src="./static/js/index.js?v=20260712-two-teasers"></script>
 </head>
 <body>
 
@@ -91,33 +91,57 @@
   </header>
 
   <section class="content-section" id="overview" data-toc-title="Overview">
-    <figure class="figure-container hero-figure">
-      <div class="hero-media">
-        <video
-          class="hero-video"
-          data-project-video
-          autoplay
-          muted
-          loop
-          playsinline
-          controls
-          preload="metadata"
-          poster="./static/images/hydrapp_teaser.png"
-          aria-label="Hydra++ real-time indoor and outdoor 3D scene graph construction"
-          hidden>
-          <source src="./static/videos/hydrapp_teaser.mp4" type="video/mp4">
-          Your browser does not support embedded video. Watch the
-          <a href="https://www.youtube.com/watch?v=CklXMpqG_Vk">Hydra++ project video on YouTube</a>.
-        </video>
-        <img
-          class="hero-video-fallback"
-          src="./static/images/hydrapp_teaser.png"
-          alt="Hydra++ indoor and outdoor 3D scene graph reconstructions">
-      </div>
-      <figcaption>
-        Hydra++ constructs hierarchical 3D scene graphs with object-level shape reconstruction in indoor RGB-D and outdoor hybrid LiDAR-camera settings.
-      </figcaption>
-    </figure>
+    <div class="teaser-video-stack">
+      <figure class="figure-container hero-figure teaser-video-item">
+        <div class="hero-media">
+          <video
+            class="hero-video"
+            data-project-video
+            autoplay
+            muted
+            loop
+            playsinline
+            controls
+            preload="metadata"
+            poster="./static/images/hydrapp_indoor_poster.jpg"
+            aria-label="Hydra++ simulated indoor mapping demonstration on uHumans2"
+            hidden>
+            <source src="./static/videos/hydrapp_indoor.mp4" type="video/mp4">
+            Your browser does not support embedded video. Watch the
+            <a href="https://www.youtube.com/watch?v=CklXMpqG_Vk">Hydra++ project video on YouTube</a>.
+          </video>
+          <img
+            class="hero-video-fallback"
+            src="./static/images/hydrapp_indoor_poster.jpg"
+            alt="Hydra++ simulated indoor mapping demonstration on uHumans2">
+        </div>
+      </figure>
+
+      <figure class="figure-container hero-figure teaser-video-item">
+        <div class="hero-media">
+          <video
+            class="hero-video"
+            data-project-video
+            autoplay
+            muted
+            loop
+            playsinline
+            controls
+            preload="metadata"
+            poster="./static/images/hydrapp_outdoor_poster.jpg"
+            aria-label="Hydra++ outdoor hybrid mapping demonstration on Kimera-Multi"
+            hidden>
+            <source src="./static/videos/hydrapp_outdoor.mp4" type="video/mp4">
+            Your browser does not support embedded video. Watch the
+            <a href="https://www.youtube.com/watch?v=CklXMpqG_Vk">Hydra++ project video on YouTube</a>.
+          </video>
+          <img
+            class="hero-video-fallback"
+            src="./static/images/hydrapp_outdoor_poster.jpg"
+            alt="Hydra++ outdoor hybrid mapping demonstration on Kimera-Multi">
+        </div>
+      </figure>
+    </div>
   </section>
 
   <section class="content-section" id="abstract" data-toc-title="Abstract">

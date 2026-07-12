@@ -217,6 +217,15 @@ hr {
   width: 100%;
 }
 
+.teaser-video-stack {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.teaser-video-item {
+  margin: 0;
+}
+
 .hero-video,
 .hero-video-fallback {
   display: block;

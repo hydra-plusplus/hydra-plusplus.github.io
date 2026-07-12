@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     video.muted = true;
     video.addEventListener('error', () => showVideoFallback(video));
-    video.addEventListener('canplay', revealVideo, { once: true });
+    video.addEventListener('loadedmetadata', revealVideo, { once: true });
     video.querySelectorAll('source').forEach((source) => {
       source.addEventListener('error', () => showVideoFallback(video));
     });
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
       video.pause();
     }
 
-    if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+    if (video.readyState >= HTMLMediaElement.HAVE_METADATA) {
       revealVideo();
     }
   });
