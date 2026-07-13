@@ -28,6 +28,7 @@
     <li><a href="#motivation">Motivation</a></li>
     <li><a href="#contributions">Contributions</a></li>
     <li><a href="#pipeline">Pipeline</a></li>
+    <li><a href="#outdoor-tsdf">Outdoor TSDF</a></li>
     <li><a href="#rmcc">RMCC</a></li>
     <li><a href="#evaluation">Evaluation</a></li>
     <li><a href="#shape-models">Shape Models</a></li>
@@ -218,28 +219,44 @@
         <p>The shape module uses the observation with the largest 3D bounding-box volume, which typically corresponds to the least occluded view.</p>
       </article>
       <article>
-        <h3>Pose and mesh</h3>
-        <p>Each accepted object stores semantic label, metric scale, reconstructed mesh, world-frame position, and orientation in the scene graph.</p>
+        <h3>Object-Layer Entity</h3>
+        <p>Each accepted object-layer entity stores its semantic label, metric scale, reconstructed mesh, world-frame position, and orientation in the scene graph.</p>
       </article>
       <article>
         <h3>Outdoor TSDF</h3>
         <p>Ground-aware adaptive integration extends the negative TSDF support for ground-labeled LiDAR returns at high incidence angles.</p>
       </article>
+      <article>
+        <h3>RMCC validation</h3>
+        <p>Predicted meshes are reprojected into the selected observation and accepted only when their silhouettes agree with the observed object mask.</p>
+      </article>
     </div>
+  </section>
 
+  <section class="content-section" id="outdoor-tsdf" data-toc-title="Outdoor TSDF">
+    <h2><b>Outdoor TSDF with Hybrid LiDAR-Camera</b></h2>
+    <p>
+      In the hybrid configuration, 3D LiDAR supplies metric depth for TSDF scene mapping, while an RGB or RGB-D camera provides image observations for semantic segmentation and object-level shape estimation.
+      At long range, sparse LiDAR rays strike the ground at high incidence angles, causing projective signed distances to extend beyond the standard truncation band.
+    </p>
+    <p>
+      Standard TSDF integration then leaves voxels behind the ground surface unobserved, so the sign transitions required for zero-level-set extraction can disappear.
+      Hydra++ applies ground-aware adaptive integration only to ground-labeled voxels: measurements within an additional negative band are clamped to the truncation boundary and integrated with a small weight.
+      This controlled negative support restores the sign transitions needed to reconstruct a continuous ground mesh without changing the standard integration band for non-ground geometry.
+    </p>
     <figure class="figure-container">
       <div class="adaptive-grid">
         <div>
-          <span>Standard integration</span>
+          <span>Standard TSDF integration</span>
           <img src="./static/images/raw/adaptive/incidence_before.png" alt="Standard TSDF integration at high incidence angles" loading="lazy">
         </div>
         <div>
-          <span>Ground-aware adaptive integration</span>
+          <span>Ground-aware adaptive TSDF integration</span>
           <img src="./static/images/raw/adaptive/incidence_after.png" alt="Ground-aware adaptive TSDF integration at high incidence angles" loading="lazy">
         </div>
       </div>
       <figcaption>
-        The adaptive strategy provides controlled negative support behind ground surfaces, restoring TSDF sign transitions that are often missing for sparse long-range LiDAR returns.
+        At high incidence angles, standard integration leaves negative-side voxels unobserved and produces fragmented ground geometry. Controlled negative support for ground-labeled returns restores TSDF sign transitions and a complete ground mesh.
       </figcaption>
     </figure>
   </section>
